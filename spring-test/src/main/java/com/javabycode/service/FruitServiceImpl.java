@@ -1,10 +1,10 @@
 package com.javabycode.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.javabycode.dao.FruitDAO;
 import com.javabycode.model.Fruit;
+import com.javabycode.repository.FruitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,40 +12,40 @@ import java.util.List;
 public class FruitServiceImpl implements FruitService {
 
     @Autowired
-    FruitDAO fruitDAO;
+    private FruitRepository fruitRepository;
 
     @Override
     public List<Fruit> getAll(int offset, int count) {
-        return fruitDAO.getAll();
+        return fruitRepository.findAll(PageRequest.of(offset, count)).getContent();
     }
 
     @Override
-    public Fruit findById(int id){
-    	return fruitDAO.findById(id);
+    public Fruit findById(int id) {
+        return fruitRepository.findById((long) id).orElse(null);
     }
 
     @Override
     public Fruit findByName(String name) {
-        return fruitDAO.findByName(name);
+        return fruitRepository.findByName(name);
     }
 
     @Override
     public void create(Fruit fruit) {
-        fruitDAO.create(fruit);
+        fruitRepository.save(fruit);
     }
 
     @Override
     public void update(Fruit fruit) {
-    	fruitDAO.update(fruit);
+        fruitRepository.save(fruit);
     }
 
     @Override
     public void delete(int id) {
-    	fruitDAO.delete(id);
+        fruitRepository.deleteById((long) id);
     }
 
     @Override
     public boolean exists(Fruit fruit) {
-        return fruitDAO.exists(fruit);
+        return fruitRepository.existsById(fruit.getId());
     }
 }
