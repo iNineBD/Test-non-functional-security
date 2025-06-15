@@ -27,4 +27,22 @@ public class AuthController {
         }
         return ResponseEntity.status(401).body("Credenciais inválidas");
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Map<String, String> body) {
+        String username = body.get("username");
+        String password = body.get("password");
+        if (username == null || password == null) {
+            return ResponseEntity.badRequest().body("Username e password são obrigatórios");
+        }
+        if (userRepository.findByUsername(username).isPresent()) {
+            return ResponseEntity.status(409).body("Usuário já existe");
+        }
+        String hashedPassword = passwordEncoder.encode(password);
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(hashedPassword);
+        userRepository.save(user);
+        return ResponseEntity.ok("Usuário cadastrado com sucesso");
+    }
 }
