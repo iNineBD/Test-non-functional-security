@@ -1,5 +1,6 @@
 package com.javabycode.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.*;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Fruit implements Serializable {
 	
+	@Serial
 	private static final long serialVersionUID = 691914827490230925L;
 	
 	@Id

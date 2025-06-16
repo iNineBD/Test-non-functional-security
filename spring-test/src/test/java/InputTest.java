@@ -100,4 +100,6 @@ public class InputTest {
                         .content(objectMapper.writeValueAsString(fruit)))
                 .andExpect(status().isCreated());
     }
+
+
 }

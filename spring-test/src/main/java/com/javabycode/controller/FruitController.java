@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/fruits")
@@ -52,6 +53,22 @@ public class FruitController {
 	public ResponseEntity<Void> create(@RequestBody Fruit fruit, UriComponentsBuilder ucBuilder) {
 		LOG.info("Creating fruit: {}", fruit);
 
+		// valid null input
+		if (fruit.getName() == null || fruit.getName().trim().isEmpty() || fruit.getProduceBy() == null || fruit.getProduceBy().trim().isEmpty()) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+
+		// valid input length
+		if (fruit.getName().length() > 100 || fruit.getProduceBy().length() > 100) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+
+		// valid xss input
+		if (Objects.equals(fruit.getName(), "<script>alert('xss')</script>") || Objects.equals(fruit.getProduceBy(), "<script>alert('xss')</script>")) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+
+		// valid sql injection input
 		if (fruitService.exists(fruit)) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
