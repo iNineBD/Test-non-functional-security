@@ -1,0 +1,46 @@
+# ===========================
+# Ignorar arquivos/diretórios de IDEs
+# ===========================
+
+# IntelliJ IDEA
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# ===========================
+# Ignorar diretórios de build e distribuição
+# ===========================
+build/
+dist/
+target/   # Diretório target (gerado por compiladores ou builds)
+
+# ===========================
+# Ignorar arquivos de log
+# ===========================
+*.log
+
+# ===========================
+# Ignorar arquivos específicos de sistema operacional
+# ===========================
+.DS_Store  # macOS - metadata de diretório
+
+# ===========================
+# Ignorar cache do Python
+# ===========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ===========================
+# Ignorar arquivos de ambiente virtual ou variáveis de ambiente
+# ===========================
+*.env
+
+# ===========================
+# Ignorar arquivos temporários de edição
+# ===========================
+*.swp    # Arquivos temporários do Vim
+*.swo
+*~       # Arquivos de backup criados por editores
