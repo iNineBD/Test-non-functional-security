@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = com.javabycode.Main.class)
 @AutoConfigureMockMvc
-public class SecurityTests {
+public class SecurityTest {
 
     @Autowired
     private MockMvc mockMvc;
